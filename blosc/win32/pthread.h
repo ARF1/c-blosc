@@ -85,8 +85,10 @@ extern int pthread_create(pthread_t *thread, const void *unused,
  * To avoid the need of copying a struct, we use small macro wrapper to pass
  * pointer to win32_pthread_join instead.
  */
+#if !defined(__GNUC__)
 #define pthread_join(a, b) win32_pthread_join(&(a), (b))
 
 extern int win32_pthread_join(pthread_t *thread, void **value_ptr);
+#endif  /* __GNUC__ */
 
 #endif /* PTHREAD_H */
